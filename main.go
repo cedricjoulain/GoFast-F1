@@ -2,7 +2,9 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"compress/gzip"
+	"encoding/base64"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -108,9 +110,37 @@ func ParseMessage(message BaseMessage) (err error) {
 	}
 
 	switch topic {
-	default:
-		log.Println(tms, topic)
+	case CarData:
+		if value, err = AsString(message[1]); err != nil {
+			return
+		}
+		if value, err = DecodeZInfo(value); err != nil {
+			return
+		}
+		log.Println(tms, value)
 	}
+	return
+}
+
+func DecodeZInfo(coded string) (decoded string, err error) {
+	var (
+		in, out []byte
+		r       io.ReadCloser
+	)
+	// Decode base64-encoded input
+	if in, err = base64.StdEncoding.DecodeString(coded); err != nil {
+		return
+	}
+	// Decompress using zlib
+	buffer := bytes.NewReader(in)
+	if r, err = NewReader(buffer); err != nil {
+		return
+	}
+	defer r.Close()
+	if out, err = io.ReadAll(r); err != nil {
+		return
+	}
+	decoded = string(out)
 	return
 }
 
