@@ -7,19 +7,29 @@ import (
 	"time"
 )
 
-type Car map[string]any
+// Seen Channels
+//  0  ? RPM (0<->13144)
+//  2  ? 0<->335
+//  3  ? GEAR (0<->8)
+//  4  ? Throttle (0<->100 & 104)
+//  45 ? 0 1 2 3 8 10 12 13 14
+//  5  ? Brake 0 100 104
+
+type Car struct {
+	Channels map[int]int
+}
 
 func (c Car) String() string {
 	var b strings.Builder
-	for k, v := range c {
-		fmt.Fprintf(&b, "%s:%T ", k, v)
+	for k, v := range c.Channels {
+		fmt.Fprintf(&b, "%d:%#v ", k, v)
 	}
 	return b.String()
 }
 
 type Entry struct {
 	Utc  time.Time
-	Cars map[int]any
+	Cars map[int]Car
 }
 
 func (e Entry) String() string {

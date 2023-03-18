@@ -108,7 +108,10 @@ func ParseMessage(message BaseMessage) (err error) {
 	if tms, err = time.ParseInLocation(time.RFC3339Nano, value, time.UTC); err != nil {
 		return
 	}
-
+	if tms.IsZero() {
+		// nothing ?
+		return
+	}
 	switch topic {
 	case TopicCarData:
 		if value, err = AsString(message[1]); err != nil {
@@ -122,8 +125,10 @@ func ParseMessage(message BaseMessage) (err error) {
 			return
 		}
 		for _, entry := range c.Entries {
-			for i, car := range entry.Cars {
-				fmt.Println(tms, entry.Utc, i, car)
+			for _, car := range entry.Cars {
+				for k, v := range car.Channels {
+					fmt.Printf("Chan%d %d\n", k, v)
+				}
 			}
 		}
 	}
