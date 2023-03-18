@@ -23,5 +23,5 @@ package main
 //    'championship_prediction': 'ChampionshipPrediction.jsonStream'  # Points
 
 const (
-	CarData = "CarData.z" // Telemetry channels (.z)
+	TopicCarData = "CarData.z" // Telemetry channels (.z)
 )

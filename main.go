@@ -110,14 +110,22 @@ func ParseMessage(message BaseMessage) (err error) {
 	}
 
 	switch topic {
-	case CarData:
+	case TopicCarData:
 		if value, err = AsString(message[1]); err != nil {
 			return
 		}
 		if value, err = DecodeZInfo(value); err != nil {
 			return
 		}
-		log.Println(tms, value)
+		var c CarData
+		if c, err = ParseCarData(value); err != nil {
+			return
+		}
+		for _, entry := range c.Entries {
+			for i, car := range entry.Cars {
+				fmt.Println(tms, entry.Utc, i, car)
+			}
+		}
 	}
 	return
 }
