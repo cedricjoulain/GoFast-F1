@@ -8,12 +8,23 @@ import (
 )
 
 // Seen Channels
-//  0  ? RPM (0<->13144)
-//  2  ? 0<->335
-//  3  ? GEAR (0<->8)
-//  4  ? Throttle (0<->100 & 104)
-//  45 ? 0 1 2 3 8 10 12 13 14
-//  5  ? Brake 0 100 104
+//  0  RPM        0<->13244
+//  2  Speed km/h 0<->340
+//  3  nGear      0<->8
+//  4  Throttle   0<->100 & 104
+//  45 DRS        0-14 (Odd DRS is Disabled, Even DRS is Enabled?)
+//                0 =  Off
+//                1 =  Off
+//                2 =  (?)
+//                3 =  (?)
+//                8 =  Detected, Eligible once in Activation Zone (Noted Sometimes)
+//                9 = ???
+//                10 = On (Unknown Distinction)
+//                11 = ???
+//                12 = On (Unknown Distinction)
+//                13 = ???
+//                14 = On (Unknown Distinction)
+//  5  Brake      0 100 104
 
 type Car struct {
 	Channels map[int]int
