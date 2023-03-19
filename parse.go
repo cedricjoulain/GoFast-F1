@@ -116,12 +116,16 @@ func ParseMessage(message BaseMessage) (parsed any, err error) {
 			if parsed, err = ParseCarData(value); err != nil {
 				return
 			}
-			/*
-				for _, entry := range c.Entries {
-					for i, car := range entry.Cars {
-						fmt.Printf("car:%d %s\n", i, car)
-					}
-				}*/
+		/*
+			for _, entry := range c.Entries {
+				for i, car := range entry.Cars {
+					fmt.Printf("car:%d %s\n", i, car)
+				}
+			}*/
+		case TopicPosition:
+			if parsed, err = ParsePosition(value); err != nil {
+				return
+			}
 		}
 	default:
 		err = fmt.Errorf("unknown topic %s", topic)
