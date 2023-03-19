@@ -23,5 +23,18 @@ package main
 //    'championship_prediction': 'ChampionshipPrediction.jsonStream'  # Points
 
 const (
-	TopicCarData = "CarData.z" // Telemetry channels (.z)
+	TopicCarData             = "CarData.z" // Telemetry channels (.z)
+	TopicDriverList          = "DriverList"
+	TopicExtrapolatedClock   = "ExtrapolatedClock"
+	TopicHeartbeat           = "Heartbeat"
+	TopicLapCount            = "LapCount"
+	TopicPosition            = "Position.z"
+	TopicRaceControlMessages = "RaceControlMessages"
+	TopicSessionData         = "SessionData"
+	TopicTimingAppData       = "TimingAppData"
+	TopicTimingData          = "TimingData"
+	TopicTimingStats         = "TimingStats"
+	TopicTopThree            = "TopThree"
+	TopicTrackStatus         = "TrackStatus"
+	TopicWeatherData         = "WeatherData"
 )
