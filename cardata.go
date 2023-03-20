@@ -32,9 +32,12 @@ type Car struct {
 
 func (c Car) String() string {
 	var b strings.Builder
-	for k, v := range c.Channels {
-		fmt.Fprintf(&b, "%d:%#v ", k, v)
-	}
+	fmt.Fprintf(&b, "RPM:%d ", c.Channels[0])
+	fmt.Fprintf(&b, "Speed:%d ", c.Channels[2])
+	fmt.Fprintf(&b, "nGear:%d ", c.Channels[3])
+	fmt.Fprintf(&b, "Throttle:%d ", c.Channels[4])
+	fmt.Fprintf(&b, "DRS:%d ", c.Channels[45])
+	fmt.Fprintf(&b, "Brake:%d ", c.Channels[5])
 	return b.String()
 }
 
