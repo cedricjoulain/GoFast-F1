@@ -21,7 +21,7 @@ import (
 type BaseMessage []any
 
 // ParseF1File read log file and parse line by line
-func ParseF1File(filename string) (err error) {
+func ParseF1File(filename string, debug bool) (err error) {
 	var (
 		rc *os.File
 		r  io.Reader
@@ -58,7 +58,7 @@ func ParseF1File(filename string) (err error) {
 			log.Println("error", err, "parsing line", line)
 			continue
 		}
-		if _, err = ParseMessage(message); err != nil {
+		if _, err = ParseMessage(message, debug); err != nil {
 			log.Println("error", err, "parsing line", line)
 			continue
 		}
@@ -78,7 +78,7 @@ func CorrectedLine(line string) string {
 }
 
 // ParseMessage parse "digested" F1 line
-func ParseMessage(message BaseMessage) (parsed any, err error) {
+func ParseMessage(message BaseMessage, debug bool) (parsed any, err error) {
 	if len(message) < 3 {
 		err = fmt.Errorf("message too short (len = %d)", len(message))
 		return
@@ -116,12 +116,13 @@ func ParseMessage(message BaseMessage) (parsed any, err error) {
 			if parsed, err = ParseCarData(value); err != nil {
 				return
 			}
-		/*
-			for _, entry := range c.Entries {
-				for i, car := range entry.Cars {
-					fmt.Printf("car:%d %s\n", i, car)
+			if debug {
+				for _, entry := range parsed.(CarData).Entries {
+					for i, car := range entry.Cars {
+						fmt.Printf("car:%d %s\n", i, car)
+					}
 				}
-			}*/
+			}
 		case TopicPosition:
 			if parsed, err = ParsePosition(value); err != nil {
 				return
