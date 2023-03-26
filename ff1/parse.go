@@ -1,4 +1,4 @@
-package main
+package ff1
 
 import (
 	"bufio"
@@ -126,6 +126,13 @@ func ParseMessage(message BaseMessage, debug bool) (parsed any, err error) {
 		case TopicPosition:
 			if parsed, err = ParsePosition(value); err != nil {
 				return
+			}
+			if debug {
+				for _, pinfo := range parsed.(Position).Position {
+					for i, onepos := range pinfo.Entries {
+						fmt.Printf("car:%d %s\n", i, onepos)
+					}
+				}
 			}
 		}
 	default:

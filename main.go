@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"log"
+
+	"fastf1/ff1"
 )
 
 // data from
@@ -12,7 +14,7 @@ func main() {
 	ptrDebug := flag.Bool("debug", false, "verbose debug inforamtions")
 	flag.Parse()
 
-	if err := ParseF1File(*ptrName, *ptrDebug); err != nil {
+	if err := ff1.ParseF1File(*ptrName, *ptrDebug); err != nil {
 		log.Fatal(err)
 	}
 }

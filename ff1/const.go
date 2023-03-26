@@ -1,4 +1,4 @@
-package main
+package ff1
 
 // From FasfF1 python
 //    'session_data': 'SessionData.json',  # track + session status + lap count

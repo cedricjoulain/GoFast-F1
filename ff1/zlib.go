@@ -21,7 +21,7 @@ and to read that data back:
 	io.Copy(os.Stdout, r)
 	r.Close()
 */
-package main
+package ff1
 
 import (
 	"bufio"

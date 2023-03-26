@@ -1,4 +1,4 @@
-package main
+package ff1
 
 import (
 	"encoding/json"
