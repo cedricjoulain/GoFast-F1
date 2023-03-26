@@ -119,7 +119,7 @@ func ParseMessage(message BaseMessage, debug bool) (parsed any, err error) {
 			if debug {
 				for _, entry := range parsed.(CarData).Entries {
 					for i, car := range entry.Cars {
-						fmt.Printf("car:%d %s\n", i, car)
+						fmt.Printf("%s car:%d %s\n", entry.Utc, i, car)
 					}
 				}
 			}
@@ -130,7 +130,7 @@ func ParseMessage(message BaseMessage, debug bool) (parsed any, err error) {
 			if debug {
 				for _, pinfo := range parsed.(Position).Position {
 					for i, onepos := range pinfo.Entries {
-						fmt.Printf("car:%d %s\n", i, onepos)
+						fmt.Printf("%s car:%d %s\n", pinfo.Timestamp, i, onepos)
 					}
 				}
 			}
