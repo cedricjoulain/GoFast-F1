@@ -51,7 +51,7 @@ func (s *PositionStatus) UnmarshalJSON(data []byte) (err error) {
 // X, Y, Z (int): Position coordinates; starting from 2020 the coordinates are given in 1/10 meter
 
 type OnePosition struct {
-	Status string // TODO enum: seen OnTrack only
+	Status PositionStatus // TODO enum: seen OnTrack only
 	X      int
 	Y      int
 	Z      int

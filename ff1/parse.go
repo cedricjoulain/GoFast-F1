@@ -102,8 +102,17 @@ func ParseMessage(message BaseMessage, debug bool) (parsed any, err error) {
 		return
 	}
 	switch topic {
-	case TopicDriverList, TopicExtrapolatedClock, TopicHeartbeat, TopicLapCount, TopicRaceControlMessages, TopicSessionData, TopicTimingAppData, TopicTimingData, TopicTimingStats, TopicTopThree, TopicTrackStatus, TopicWeatherData:
+	case TopicDriverList, TopicExtrapolatedClock, TopicHeartbeat, TopicLapCount, TopicRaceControlMessages, TopicSessionData, TopicTimingAppData, TopicTimingStats, TopicTopThree, TopicTrackStatus, TopicWeatherData:
 		// TODO
+	case TopicTimingData:
+		if m, ok := (message[1]).(map[string]any); !ok {
+			err = fmt.Errorf("timing data should be map[string]any is a %T", message[1])
+			return
+		} else {
+			if parsed, err = ParseTimingData(m); err != nil {
+				return
+			}
+		}
 	case TopicCarData, TopicPosition:
 		if value, err = AsString(message[1]); err != nil {
 			return
